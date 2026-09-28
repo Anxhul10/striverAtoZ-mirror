@@ -2811,6 +2811,10 @@ const DATA = [
 ];
 
 const STORAGE_KEY = "a2z-sheet-progress-v1";
+const REFERENCE_TOTALS = { total: 474, Easy: 151, Medium: 187, Hard: 136 };
+// Deliberately not persisted: a fresh page load starts with every section collapsed.
+// Re-renders during this page session preserve the user's expanded sections.
+const expandedTopics = new Set();
 const state = loadState();
 let revisionOnly = false;
 let noteProblemId = null;
@@ -2838,7 +2842,7 @@ function difficultyOf(problem) {
 function updateOverview() {
   const problems = allProblems();
   const solved = problems.filter(p => getProblemState(p.id).done).length;
-  const total = problems.length;
+  const total = REFERENCE_TOTALS.total;
   const percent = total ? Math.round(solved / total * 100) : 0;
   $("#solvedCount").textContent = solved;
   $("#totalCount").textContent = total;
@@ -2847,7 +2851,7 @@ function updateOverview() {
   ["Easy", "Medium", "Hard"].forEach(level => {
     const group = problems.filter(p => difficultyOf(p) === level);
     $("#"+level.toLowerCase()+"Count").textContent = group.filter(p => getProblemState(p.id).done).length;
-    $("#"+level.toLowerCase()+"Total").textContent = `/${group.length}`;
+    $("#"+level.toLowerCase()+"Total").textContent = `/${REFERENCE_TOTALS[level]}`;
   });
 }
 function matchesFilters(problem) {
@@ -2940,11 +2944,11 @@ function render() {
     const solved = topic.problems.filter((p, pi) => getProblemState(problemId(ti, pi)).done).length;
 
     const section = document.createElement("section");
-    section.className = "topic";
+    section.className = `topic${expandedTopics.has(ti) ? "" : " collapsed"}`;
     const heading = document.createElement("div");
     heading.className = "topic-heading";
     heading.setAttribute("role", "button"); heading.setAttribute("tabindex", "0");
-    heading.setAttribute("aria-expanded", "true");
+    heading.setAttribute("aria-expanded", String(expandedTopics.has(ti)));
     const chevron = document.createElement("span"); chevron.className = "chevron"; chevron.textContent = "⌄";
     const title = document.createElement("span"); title.className = "topic-title"; title.textContent = topic.topic;
     const summary = document.createElement("span"); summary.className = "topic-summary";
@@ -2966,8 +2970,10 @@ function render() {
     table.append(thead, tbody); wrap.append(table); content.append(wrap);
     section.append(heading, content);
     const toggle = () => {
-      section.classList.toggle("collapsed");
-      heading.setAttribute("aria-expanded", String(!section.classList.contains("collapsed")));
+      if (expandedTopics.has(ti)) expandedTopics.delete(ti);
+      else expandedTopics.add(ti);
+      section.classList.toggle("collapsed", !expandedTopics.has(ti));
+      heading.setAttribute("aria-expanded", String(expandedTopics.has(ti)));
     };
     heading.addEventListener("click", toggle);
     heading.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
