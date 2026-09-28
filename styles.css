@@ -154,12 +154,12 @@ select { min-width: 120px; cursor: pointer; }
 /* Highlight Export and Import with a light-orange outline */
 #exportBtn,
 .import-button {
-  border: 1px solid #f4b183;
-  box-shadow: 0 0 0 1px rgba(244, 177, 131, 0.12);
+    border: 1px solid #f4b183;
+    box-shadow: 0 0 0 1px rgba(244, 177, 131, 0.12);
 }
 
 #exportBtn:hover,
 .import-button:hover {
-  border-color: #ffc08f;
-  box-shadow: 0 0 0 2px rgba(244, 177, 131, 0.2);
+    border-color: #ffc08f;
+    box-shadow: 0 0 0 2px rgba(244, 177, 131, 0.2);
 }
