@@ -2886,10 +2886,18 @@ function makeProblemRow(problem) {
   });
   tr.append(makeCell(check));
 
-  const name = document.createElement("span");
-  name.className = "problem-name"; name.textContent = problem.name;
-  tr.append(makeCell(name));
+ const name = document.createElement("a");
+name.className = "problem-name";
+name.textContent = problem.name;
 
+const articleId = problem.name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+name.href = `article.html?id=${articleId}`;
+
+tr.append(makeCell(name));
   const solve = document.createElement("a");
   solve.className = "solve-link"; solve.href = problem.url || "#";
   solve.target = "_blank"; solve.rel = "noopener noreferrer"; solve.textContent = "Solve";
@@ -3051,3 +3059,22 @@ $("#importFile").addEventListener("change", async event => {
   event.target.value = "";
 });
 render();
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+async function loadArticle() {
+    const response = await fetch(`articles/${id}.md`);
+
+    if (!response.ok) {
+        document.getElementById("article-content").textContent =
+            "Article not found";
+        return;
+    }
+
+    const markdown = await response.text();
+
+    document.getElementById("article-content").innerHTML =
+        marked.parse(markdown);
+}
+
+loadArticle();
