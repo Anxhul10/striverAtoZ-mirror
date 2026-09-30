@@ -1,0 +1,168 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #1e1e20;
+    color: #e5e5e5;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.55;
+}
+
+.article-page {
+    width: 100%;
+    min-height: 100vh;
+    padding: 24px;
+}
+
+.article-title {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 18px;
+    color: #f5f5f5;
+}
+
+.problem-statement {
+    margin-bottom: 20px;
+}
+
+.article-section {
+    border: 1px solid #39393d;
+    border-radius: 8px;
+    margin: 12px 0;
+    overflow: hidden;
+    background: #1e1e20;
+}
+
+.article-section > summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 14px 16px;
+    font-size: 15px;
+    user-select: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.article-section > summary::-webkit-details-marker {
+    display: none;
+}
+
+.article-section > summary::after {
+    content: "⌄";
+    font-size: 20px;
+    color: #c7c7c7;
+}
+
+.article-section[open] > summary::after {
+    content: "⌃";
+}
+
+.article-section > summary:hover {
+    background: #252528;
+}
+
+.section-content {
+    padding: 8px 16px 18px;
+}
+
+.section-content p {
+    margin: 12px 0;
+}
+
+.section-content h1,
+.section-content h2,
+.section-content h3 {
+    color: #f0f0f0;
+}
+
+.section-content h3 {
+    font-size: 18px;
+    margin-top: 18px;
+}
+
+.section-content ul,
+.section-content ol {
+    padding-left: 28px;
+}
+
+.section-content li {
+    margin: 8px 0;
+}
+
+/* Nested sections, such as Algorithm inside Approach */
+.nested-section {
+    margin: 12px 0;
+    border: 1px solid #39393d;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.nested-section > summary {
+    padding: 12px 15px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.nested-section > summary::-webkit-details-marker {
+    display: none;
+}
+
+.nested-section > summary::after {
+    content: "⌄";
+    float: right;
+}
+
+.nested-section[open] > summary::after {
+    content: "⌃";
+}
+
+.nested-content {
+    padding: 4px 15px 16px;
+}
+
+/* Code blocks */
+pre {
+    overflow-x: auto;
+    padding: 20px;
+    border: 1px solid #38383d;
+    border-radius: 7px;
+    background: #171719;
+    color: #dedede;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+code {
+    font-family: "Consolas", "Monaco", monospace;
+}
+
+:not(pre) > code {
+    background: #303034;
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+}
+
+th,
+td {
+    border: 1px solid #414146;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background: #29292d;
+}
+
+.loading {
+    color: #aaa;
+}
