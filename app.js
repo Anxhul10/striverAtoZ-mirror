@@ -12,12 +12,21 @@ const $ = (selector) => document.querySelector(selector);
 const topicList = $("#topicList");
 
 function loadState() {
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-  catch { return {}; }
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch {
+    return {};
+  }
 }
-function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-function problemId(topicIndex, problemIndex) { return `${topicIndex}:${problemIndex}`; }
-function getProblemState(id) { return state[id] || {}; }
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+function problemId(topicIndex, problemIndex) {
+  return `${topicIndex}:${problemIndex}`;
+}
+function getProblemState(id) {
+  return state[id] || {};
+}
 
 function normalizedTopics() {
   return DATA.map((topic) => ({
@@ -40,7 +49,11 @@ function allProblems() {
         return {
           ...question,
           name: question.name ?? question.title,
-          platform: question.platform || (question.url ? new URL(question.url).hostname.replace(/^www\./, "") : ""),
+          platform:
+            question.platform ||
+            (question.url
+              ? new URL(question.url).hostname.replace(/^www\./, "")
+              : ""),
           id: problemId(ti, currentIndex),
           topic: topic.topic,
           subtopic: subtopic.title,
@@ -53,21 +66,29 @@ function allProblems() {
 }
 
 function difficultyOf(problem) {
-  return ["Easy", "Medium", "Hard"].includes(problem.difficulty) ? problem.difficulty : "Unspecified";
+  return ["Easy", "Medium", "Hard"].includes(problem.difficulty)
+    ? problem.difficulty
+    : "Unspecified";
 }
 
 function updateOverview() {
   const problems = allProblems();
   const solved = problems.filter((p) => getProblemState(p.id).done).length;
-  const percent = REFERENCE_TOTALS.total ? Math.round((solved / REFERENCE_TOTALS.total) * 100) : 0;
+  const percent = REFERENCE_TOTALS.total
+    ? Math.round((solved / REFERENCE_TOTALS.total) * 100)
+    : 0;
   $("#solvedCount").textContent = solved;
   $("#totalCount").textContent = REFERENCE_TOTALS.total;
   $("#progressPercent").textContent = `${percent}%`;
-  $("#progressRing").style.background = `conic-gradient(var(--orange) ${percent * 3.6}deg, #303034 0deg)`;
+  $("#progressRing").style.background =
+    `conic-gradient(var(--orange) ${percent * 3.6}deg, #303034 0deg)`;
   ["Easy", "Medium", "Hard"].forEach((level) => {
     const group = problems.filter((p) => difficultyOf(p) === level);
-    $("#" + level.toLowerCase() + "Count").textContent = group.filter((p) => getProblemState(p.id).done).length;
-    $("#" + level.toLowerCase() + "Total").textContent = `/${REFERENCE_TOTALS[level]}`;
+    $("#" + level.toLowerCase() + "Count").textContent = group.filter(
+      (p) => getProblemState(p.id).done,
+    ).length;
+    $("#" + level.toLowerCase() + "Total").textContent =
+      `/${REFERENCE_TOTALS[level]}`;
   });
 }
 
@@ -76,10 +97,17 @@ function matchesFilters(problem) {
   const filter = $("#statusFilter").value;
   const difficulty = $("#difficultyFilter").value;
   const ps = getProblemState(problem.id);
-  if (query && !`${problem.name} ${problem.topic} ${problem.subtopic} ${problem.platform}`.toLowerCase().includes(query)) return false;
+  if (
+    query &&
+    !`${problem.name} ${problem.topic} ${problem.subtopic} ${problem.platform}`
+      .toLowerCase()
+      .includes(query)
+  )
+    return false;
   if (filter === "todo" && ps.done) return false;
   if (filter === "done" && !ps.done) return false;
-  if (difficulty !== "all" && difficultyOf(problem) !== difficulty) return false;
+  if (difficulty !== "all" && difficultyOf(problem) !== difficulty)
+    return false;
   if (revisionOnly && !ps.revision) return false;
   return true;
 }
@@ -104,14 +132,18 @@ function makeProblemRow(problem) {
   check.setAttribute("aria-label", `Mark ${problem.name} complete`);
   check.addEventListener("change", () => {
     state[problem.id] = { ...getProblemState(problem.id), done: check.checked };
-    saveState(); render();
+    saveState();
+    render();
   });
   tr.append(makeCell(check));
 
   const name = document.createElement("a");
   name.className = "problem-name";
   name.textContent = problem.name;
-  const articleId = problem.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const articleId = problem.name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
   name.href = `article.html?id=${articleId}`;
   name.target = "_blank";
   name.rel = "noopener noreferrer";
@@ -156,8 +188,12 @@ function makeProblemRow(problem) {
   star.title = ps.revision ? "Remove from revision" : "Add to revision";
   star.setAttribute("aria-label", star.title);
   star.addEventListener("click", () => {
-    state[problem.id] = { ...getProblemState(problem.id), revision: !ps.revision };
-    saveState(); render();
+    state[problem.id] = {
+      ...getProblemState(problem.id),
+      revision: !ps.revision,
+    };
+    saveState();
+    render();
   });
   tr.append(makeCell(star));
 
@@ -176,8 +212,19 @@ function makeTable(problems) {
   table.className = "problem-table";
   const thead = document.createElement("thead");
   const headerRow = document.createElement("tr");
-  ["Status", "Problem", "Solve", "Platform", "Resource", "Note", "Revision", "Difficulty"].forEach((label) => {
-    const th = document.createElement("th"); th.textContent = label; headerRow.append(th);
+  [
+    "Status",
+    "Problem",
+    "Solve",
+    "Platform",
+    "Resource",
+    "Note",
+    "Revision",
+    "Difficulty",
+  ].forEach((label) => {
+    const th = document.createElement("th");
+    th.textContent = label;
+    headerRow.append(th);
   });
   thead.append(headerRow);
   const tbody = document.createElement("tbody");
@@ -199,7 +246,9 @@ function render() {
         return {
           ...q,
           name: q.name ?? q.title,
-          platform: q.platform || (q.url ? new URL(q.url).hostname.replace(/^www\./, "") : ""),
+          platform:
+            q.platform ||
+            (q.url ? new URL(q.url).hostname.replace(/^www\./, "") : ""),
           id: problemId(ti, pi),
           topic: topic.topic,
           subtopic: subtopic.title,
@@ -207,7 +256,12 @@ function render() {
           problemIndex: pi,
         };
       });
-      return { ...subtopic, si, questions, visible: questions.filter(matchesFilters) };
+      return {
+        ...subtopic,
+        si,
+        questions,
+        visible: questions.filter(matchesFilters),
+      };
     });
     const visible = subtopicData.reduce((n, s) => n + s.visible.length, 0);
     if (!visible) return;
@@ -222,16 +276,27 @@ function render() {
     heading.setAttribute("role", "button");
     heading.setAttribute("tabindex", "0");
     heading.setAttribute("aria-expanded", String(expandedTopics.has(ti)));
-    const chevron = document.createElement("span"); chevron.className = "chevron"; chevron.textContent = "⌄";
-    const title = document.createElement("span"); title.className = "topic-title"; title.textContent = topic.topic;
-    const summary = document.createElement("span"); summary.className = "topic-summary";
-    const track = document.createElement("span"); track.className = "topic-track";
-    const fill = document.createElement("span"); fill.style.width = `${all.length ? (solved / all.length) * 100 : 0}%`;
+    const chevron = document.createElement("span");
+    chevron.className = "chevron";
+    chevron.textContent = "⌄";
+    const title = document.createElement("span");
+    title.className = "topic-title";
+    title.textContent = topic.topic;
+    const summary = document.createElement("span");
+    summary.className = "topic-summary";
+    const track = document.createElement("span");
+    track.className = "topic-track";
+    const fill = document.createElement("span");
+    fill.style.width = `${all.length ? (solved / all.length) * 100 : 0}%`;
     track.append(fill);
-    const count = document.createElement("span"); count.textContent = `${solved} / ${all.length}`;
-    summary.append(track, count); heading.append(chevron, title, summary);
+    const count = document.createElement("span");
+    count.textContent = `${solved} / ${all.length}`;
+    summary.append(track, count);
+    heading.append(chevron, title, summary);
 
-    const content = document.createElement("div"); content.className = "topic-content";
+    const content = document.createElement("div");
+    content.className = "topic-content";
+    content.hidden = !expandedTopics.has(ti);
     subtopicData.forEach((sub) => {
       if (!sub.visible.length) return;
       const subSection = document.createElement("section");
@@ -240,35 +305,65 @@ function render() {
       subHeading.className = "subtopic-heading";
       subHeading.setAttribute("role", "button");
       subHeading.setAttribute("tabindex", "0");
-      subHeading.setAttribute("aria-expanded", String(expandedSubtopics.has(`${ti}:${sub.si}`)));
-      const subTitle = document.createElement("span"); subTitle.className = "subtopic-title"; subTitle.textContent = sub.title;
-      const subCount = document.createElement("span"); subCount.className = "subtopic-summary"; subCount.textContent = `${sub.visible.length} questions`;
+      subHeading.setAttribute(
+        "aria-expanded",
+        String(expandedSubtopics.has(`${ti}:${sub.si}`)),
+      );
+      const subTitle = document.createElement("span");
+      subTitle.className = "subtopic-title";
+      subTitle.textContent = sub.title;
+      const subCount = document.createElement("span");
+      subCount.className = "subtopic-summary";
+      subCount.textContent = `${sub.visible.length} questions`;
       subHeading.append(subTitle, subCount);
-      const subContent = document.createElement("div"); subContent.className = "subtopic-content";
+      const subContent = document.createElement("div");
+      subContent.className = "subtopic-content";
+      subContent.hidden = !expandedSubtopics.has(`${ti}:${sub.si}`);
       subContent.append(makeTable(sub.visible));
       const toggleSub = () => {
         const key = `${ti}:${sub.si}`;
-        if (expandedSubtopics.has(key)) expandedSubtopics.delete(key); else expandedSubtopics.add(key);
+        if (expandedSubtopics.has(key)) expandedSubtopics.delete(key);
+        else expandedSubtopics.add(key);
         subSection.classList.toggle("collapsed", !expandedSubtopics.has(key));
-        subHeading.setAttribute("aria-expanded", String(expandedSubtopics.has(key)));
+        subContent.hidden = !expandedSubtopics.has(key);
+        subHeading.setAttribute(
+          "aria-expanded",
+          String(expandedSubtopics.has(key)),
+        );
       };
       subHeading.addEventListener("click", toggleSub);
-      subHeading.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggleSub(); } });
-      subSection.append(subHeading, subContent); content.append(subSection);
+      subHeading.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleSub();
+        }
+      });
+      subSection.append(subHeading, subContent);
+      content.append(subSection);
     });
     const toggle = () => {
-      if (expandedTopics.has(ti)) expandedTopics.delete(ti); else expandedTopics.add(ti);
+      if (expandedTopics.has(ti)) expandedTopics.delete(ti);
+      else expandedTopics.add(ti);
       section.classList.toggle("collapsed", !expandedTopics.has(ti));
+      content.hidden = !expandedTopics.has(ti);
       heading.setAttribute("aria-expanded", String(expandedTopics.has(ti)));
     };
     heading.addEventListener("click", toggle);
-    heading.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
-    section.append(heading, content); topicList.append(section);
+    heading.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggle();
+      }
+    });
+    section.append(heading, content);
+    topicList.append(section);
   });
   if (!visibleTotal) {
     const empty = document.createElement("div");
     empty.className = "empty-state";
-    empty.textContent = revisionOnly ? "No revision problems yet. Use the star beside a problem to add it here." : "No problems match the current filters.";
+    empty.textContent = revisionOnly
+      ? "No revision problems yet. Use the star beside a problem to add it here."
+      : "No problems match the current filters.";
     topicList.append(empty);
   }
 }
@@ -283,8 +378,13 @@ function openNote(problem) {
 $("#noteForm").addEventListener("submit", (e) => {
   if (e.submitter && e.submitter.id === "saveNoteBtn") {
     e.preventDefault();
-    state[noteProblemId] = { ...getProblemState(noteProblemId), note: $("#noteText").value.trim() };
-    saveState(); $("#noteDialog").close(); render();
+    state[noteProblemId] = {
+      ...getProblemState(noteProblemId),
+      note: $("#noteText").value.trim(),
+    };
+    saveState();
+    $("#noteDialog").close();
+    render();
   }
 });
 $("#searchInput").addEventListener("input", render);
@@ -306,7 +406,9 @@ $("#randomBtn").addEventListener("click", () => {
   const candidates = allProblems().filter(matchesFilters);
   if (!candidates.length) return;
   const picked = candidates[Math.floor(Math.random() * candidates.length)];
-  const section = [...document.querySelectorAll(".topic")].find((el) => el.querySelector(".topic-title")?.textContent === picked.topic);
+  const section = [...document.querySelectorAll(".topic")].find(
+    (el) => el.querySelector(".topic-title")?.textContent === picked.topic,
+  );
   if (section) {
     expandedTopics.add(picked.topicIndex);
     section.classList.remove("collapsed");
@@ -321,15 +423,33 @@ $("#randomBtn").addEventListener("click", () => {
 });
 
 $("#resetBtn").addEventListener("click", () => {
-  if (!confirm("Reset all completion, revision, and note data saved in this browser?")) return;
+  if (
+    !confirm(
+      "Reset all completion, revision, and note data saved in this browser?",
+    )
+  )
+    return;
   Object.keys(state).forEach((key) => delete state[key]);
-  saveState(); render();
+  saveState();
+  render();
 });
 
 $("#exportBtn").addEventListener("click", () => {
-  const blob = new Blob([JSON.stringify({ version: 1, exportedAt: new Date().toISOString(), progress: state }, null, 2)], { type: "application/json" });
+  const blob = new Blob(
+    [
+      JSON.stringify(
+        { version: 1, exportedAt: new Date().toISOString(), progress: state },
+        null,
+        2,
+      ),
+    ],
+    { type: "application/json" },
+  );
   const url = URL.createObjectURL(blob);
-  const a = document.createElement("a"); a.href = url; a.download = "striver-a2z-progress.json"; a.click();
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "striver-a2z-progress.json";
+  a.click();
   URL.revokeObjectURL(url);
 });
 
@@ -338,15 +458,24 @@ $("#importFile").addEventListener("change", async (event) => {
   if (!file) return;
   try {
     const parsed = JSON.parse(await file.text());
-    const imported = parsed.progress && typeof parsed.progress === "object" ? parsed.progress : parsed;
-    if (!imported || typeof imported !== "object" || Array.isArray(imported)) throw new Error("Invalid format");
+    const imported =
+      parsed.progress && typeof parsed.progress === "object"
+        ? parsed.progress
+        : parsed;
+    if (!imported || typeof imported !== "object" || Array.isArray(imported))
+      throw new Error("Invalid format");
     Object.keys(state).forEach((key) => delete state[key]);
     Object.entries(imported).forEach(([key, value]) => {
-      if (/^\d+:\d+$/.test(key) && value && typeof value === "object") state[key] = value;
+      if (/^\d+:\d+$/.test(key) && value && typeof value === "object")
+        state[key] = value;
     });
-    saveState(); render(); alert("Progress imported.");
+    saveState();
+    render();
+    alert("Progress imported.");
   } catch {
-    alert("Could not import this file. Please choose a valid progress JSON export.");
+    alert(
+      "Could not import this file. Please choose a valid progress JSON export.",
+    );
   }
   event.target.value = "";
 });
@@ -358,7 +487,8 @@ const id = params.get("id");
 async function loadArticle() {
   const response = await fetch(`articles/${id}.md`);
   if (!response.ok) {
-    document.getElementById("article-content").textContent = "Article not found";
+    document.getElementById("article-content").textContent =
+      "Article not found";
     return;
   }
   const markdown = await response.text();

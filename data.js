@@ -1512,7 +1512,8 @@ export const DATA = [
     ],
   },
   {
-    topic: "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
+    topic:
+      "Stack and Queues [Learning, Pre-In-Post-fix, Monotonic Stack, Implementation]",
     subtopics: [
       {
         title: "Learning",
