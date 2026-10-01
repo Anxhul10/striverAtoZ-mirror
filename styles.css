@@ -679,3 +679,47 @@ select {
   border-color: #ffc08f;
   box-shadow: 0 0 0 2px rgba(244, 177, 131, 0.2);
 }
+/* Make subtopic heading behave and look clickable */
+.subtopic-heading {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Smaller title than the topic */
+.subtopic-title {
+  font-size: 14px;
+}
+
+/* Subtopic arrow */
+.subtopic-chevron {
+  display: inline-block;
+  font-size: 14px;
+  transition: transform 0.2s ease;
+  color: var(--muted, #92929b);
+}
+
+.subtopic.collapsed .subtopic-chevron {
+  transform: rotate(-90deg);
+}
+
+.subtopic-heading:hover {
+  cursor: pointer;
+}
+
+.subtopic-heading:hover .subtopic-chevron {
+  color: var(--text, #e8e8eb);
+}
+.subtopic + .subtopic {
+  margin-top: 16px;
+}
+
+.subtopic-content {
+  padding: 14px 12px 12px;
+}
+
+.subtopic-content .problem-table-wrap {
+  border-radius: 8px;
+  overflow: hidden;
+}

@@ -309,13 +309,19 @@ function render() {
         "aria-expanded",
         String(expandedSubtopics.has(`${ti}:${sub.si}`)),
       );
+      const subChevron = document.createElement("span");
+      subChevron.className = "subtopic-chevron";
+      subChevron.textContent = "⌄";
+
       const subTitle = document.createElement("span");
       subTitle.className = "subtopic-title";
       subTitle.textContent = sub.title;
+
       const subCount = document.createElement("span");
       subCount.className = "subtopic-summary";
       subCount.textContent = `${sub.visible.length} questions`;
-      subHeading.append(subTitle, subCount);
+      subHeading.append(subChevron, subTitle, subCount);
+      
       const subContent = document.createElement("div");
       subContent.className = "subtopic-content";
       subContent.hidden = !expandedSubtopics.has(`${ti}:${sub.si}`);
