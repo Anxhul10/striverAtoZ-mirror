@@ -33,7 +33,10 @@ Export your current progress first if you want to keep a backup.
 
 ## Contribute an article
 
+Example pull request: [#1](https://github.com/Anxhul10/striverAtoZ-mirror/pull/1)
+
 For the full instructions, see the [article contribution guide](contribute.md).
+
 ------------------------------------------------------------------------
 
 Made for learning and community contributions. Happy solving!
