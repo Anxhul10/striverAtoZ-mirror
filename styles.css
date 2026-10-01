@@ -744,3 +744,56 @@ select {
   border-radius: 10px;
   transition: width 0.25s ease;
 }
+/* Blue theme */
+:root {
+  --bg: #0b1120;
+  --surface: #111a2e;
+  --surface-raised: #17233b;
+  --surface-hover: #1e2d49;
+
+  --line: #293955;
+  --line-soft: #202e47;
+
+  --text: #e8eef9;
+  --muted: #91a0b8;
+  --faint: #65758f;
+
+  --orange: #60a5fa;
+  --orange-dim: #172d4b;
+
+  --green: #34d399;
+  --yellow: #fbbf24;
+  --pink: #fb7185;
+}
+
+/* Replace remaining hardcoded orange styling */
+.overview {
+  border-color: #294b78;
+}
+
+.button-reset {
+  background: #172d4b;
+  border-color: #294b78;
+}
+
+.problem-table tr.random-highlight {
+  background: #1b3455;
+}
+
+.button-primary {
+  background: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Keep the import/export outline blue too */
+#exportBtn,
+.import-button {
+  border-color: #60a5fa;
+  box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.12);
+}
+
+#exportBtn:hover,
+.import-button:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.2);
+}
