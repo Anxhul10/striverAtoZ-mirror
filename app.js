@@ -116,9 +116,12 @@ function makeProblemRow(problem) {
     .replace(/^-|-$/g, "");
 
   name.href = `article.html?id=${articleId}`;
+  name.target = "_blank";
+  name.rel = "noopener noreferrer";
 
   tr.append(makeCell(name));
   const solve = document.createElement("a");
+  
   solve.className = "solve-link";
   solve.href = problem.url || "#";
   solve.target = "_blank";
