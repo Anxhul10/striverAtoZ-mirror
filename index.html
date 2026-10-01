@@ -1,91 +1,162 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#151517">
-  <title>Striver's A2Z Sheet — Personal Tracker</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <aside class="rail" aria-label="Main navigation">
-    <a class="rail-logo" href="#" aria-label="Home">F<span>›</span></a>
-  </aside>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#151517" />
+    <title>Striver's A2Z Sheet — Personal Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <aside class="rail" aria-label="Main navigation">
+      <a class="rail-logo" href="#" aria-label="Home">F<span>›</span></a>
+    </aside>
 
-  <main class="app" id="top">
-    <header class="page-header">
-      <div class="heading">
-        <h1>Striver's A2Z Sheet Mirror - Learn DSA from A to Z</h1>
-        <p>This course is made for people who want to learn DSA from A to Z for free in a well-organised and structured manner. <a href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/" target="_blank" rel="noopener">Know more</a></p>
-      </div>
-      <div class="header-actions">
-        <button class="button button-reset" id="resetBtn" type="button">Reset ↶</button>
-        <button class="button" id="exportBtn" type="button">Export ⇧</button>
-        <label class="button import-button" for="importFile">Import ⇩</label>
-        <input id="importFile" type="file" accept="application/json,.json" hidden>
-        <span class="updated">Personal tracker</span>
-      </div>
-    </header>
-
-    <section class="toolbar" aria-label="Problem controls">
-      <div class="tabs" role="tablist" aria-label="View">
-        <button class="tab active" id="allTab" role="tab" aria-selected="true" type="button">All Problems</button>
-        <button class="tab" id="revisionTab" role="tab" aria-selected="false" type="button">Revision</button>
-      </div>
-      <div class="toolbar-spacer"></div>
-      <label class="search-wrap" aria-label="Search problems">
-        <span aria-hidden="true">⌕</span>
-        <input id="searchInput" type="search" placeholder="Search" autocomplete="off">
-      </label>
-      <select id="statusFilter" aria-label="Filter by status">
-        <option value="all">All problems</option>
-        <option value="todo">Not completed</option>
-        <option value="done">Completed</option>
-      </select>
-      <select id="difficultyFilter" aria-label="Filter by difficulty">
-        <option value="all">Difficulty</option>
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-        <option value="Unspecified">Not specified</option>
-      </select>
-      <button class="button random-button" id="randomBtn" type="button">⤨ <span>Random Problem</span></button>
-    </section>
-
-    <section class="overview" id="progress" aria-label="Overall progress">
-      <div class="overall-left">
-        <div class="progress-ring" id="progressRing"><span id="progressPercent">0%</span></div>
-        <div>
-          <div class="overview-label">Overall Progress</div>
-          <div class="overview-count"><strong id="solvedCount">0</strong> / <span id="totalCount">474</span></div>
+    <main class="app" id="top">
+      <header class="page-header">
+        <div class="heading">
+          <h1>Striver's A2Z Sheet Mirror - Learn DSA from A to Z</h1>
+          <p>
+            This course is made for people who want to learn DSA from A to Z for
+            free in a well-organised and structured manner.
+            <a
+              href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/"
+              target="_blank"
+              rel="noopener"
+              >Know more</a
+            >
+          </p>
         </div>
-      </div>
-      <div class="difficulty-stats">
-        <div class="difficulty-stat easy"><i></i><span>Easy</span><b id="easyCount">0</b><small id="easyTotal">/151</small></div>
-        <div class="difficulty-stat medium"><i></i><span>Medium</span><b id="mediumCount">0</b><small id="mediumTotal">/187</small></div>
-        <div class="difficulty-stat hard"><i></i><span>Hard</span><b id="hardCount">0</b><small id="hardTotal">/136</small></div>
-      </div>
-    </section>
+        <div class="header-actions">
+          <button class="button button-reset" id="resetBtn" type="button">
+            Reset ↶
+          </button>
+          <button class="button" id="exportBtn" type="button">Export ⇧</button>
+          <label class="button import-button" for="importFile">Import ⇩</label>
+          <input
+            id="importFile"
+            type="file"
+            accept="application/json,.json"
+            hidden
+          />
+          <span class="updated">Personal tracker</span>
+        </div>
+      </header>
 
-    <section class="sheet" id="sheet" aria-label="DSA topics">
-      <div id="topicList" aria-live="polite"></div>
-    </section>
-    <footer class="footer-note">Progress is saved in this browser. Use Export to keep a backup or move it to another browser.</footer>
-  </main>
+      <section class="toolbar" aria-label="Problem controls">
+        <div class="tabs" role="tablist" aria-label="View">
+          <button
+            class="tab active"
+            id="allTab"
+            role="tab"
+            aria-selected="true"
+            type="button"
+          >
+            All Problems
+          </button>
+          <button
+            class="tab"
+            id="revisionTab"
+            role="tab"
+            aria-selected="false"
+            type="button"
+          >
+            Revision
+          </button>
+        </div>
+        <div class="toolbar-spacer"></div>
+        <label class="search-wrap" aria-label="Search problems">
+          <span aria-hidden="true">⌕</span>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search"
+            autocomplete="off"
+          />
+        </label>
+        <select id="statusFilter" aria-label="Filter by status">
+          <option value="all">All problems</option>
+          <option value="todo">Not completed</option>
+          <option value="done">Completed</option>
+        </select>
+        <select id="difficultyFilter" aria-label="Filter by difficulty">
+          <option value="all">Difficulty</option>
+          <option value="Easy">Easy</option>
+          <option value="Medium">Medium</option>
+          <option value="Hard">Hard</option>
+          <option value="Unspecified">Not specified</option>
+        </select>
+        <button class="button random-button" id="randomBtn" type="button">
+          ⤨ <span>Random Problem</span>
+        </button>
+      </section>
 
-  <dialog id="noteDialog" class="note-dialog">
-    <form method="dialog" id="noteForm">
-      <div class="dialog-heading">
-        <div><span class="eyebrow">PERSONAL NOTE</span><h2 id="noteTitle">Problem note</h2></div>
-        <button class="icon-button" value="cancel" aria-label="Close">×</button>
-      </div>
-      <textarea id="noteText" rows="6" placeholder="Add an approach, mistake, or revision reminder…"></textarea>
-      <div class="dialog-actions">
-        <button class="button" value="cancel">Cancel</button>
-        <button class="button button-primary" id="saveNoteBtn" value="default">Save note</button>
-      </div>
-    </form>
-  </dialog>
-  <script src="app.js"></script>
-</body>
+      <section class="overview" id="progress" aria-label="Overall progress">
+        <div class="overall-left">
+          <div class="progress-ring" id="progressRing">
+            <span id="progressPercent">0%</span>
+          </div>
+          <div>
+            <div class="overview-label">Overall Progress</div>
+            <div class="overview-count">
+              <strong id="solvedCount">0</strong> /
+              <span id="totalCount">474</span>
+            </div>
+          </div>
+        </div>
+        <div class="difficulty-stats">
+          <div class="difficulty-stat easy">
+            <i></i><span>Easy</span><b id="easyCount">0</b
+            ><small id="easyTotal">/151</small>
+          </div>
+          <div class="difficulty-stat medium">
+            <i></i><span>Medium</span><b id="mediumCount">0</b
+            ><small id="mediumTotal">/187</small>
+          </div>
+          <div class="difficulty-stat hard">
+            <i></i><span>Hard</span><b id="hardCount">0</b
+            ><small id="hardTotal">/136</small>
+          </div>
+        </div>
+      </section>
+
+      <section class="sheet" id="sheet" aria-label="DSA topics">
+        <div id="topicList" aria-live="polite"></div>
+      </section>
+      <footer class="footer-note">
+        Progress is saved in this browser. Use Export to keep a backup or move
+        it to another browser.
+      </footer>
+    </main>
+
+    <dialog id="noteDialog" class="note-dialog">
+      <form method="dialog" id="noteForm">
+        <div class="dialog-heading">
+          <div>
+            <span class="eyebrow">PERSONAL NOTE</span>
+            <h2 id="noteTitle">Problem note</h2>
+          </div>
+          <button class="icon-button" value="cancel" aria-label="Close">
+            ×
+          </button>
+        </div>
+        <textarea
+          id="noteText"
+          rows="6"
+          placeholder="Add an approach, mistake, or revision reminder…"
+        ></textarea>
+        <div class="dialog-actions">
+          <button class="button" value="cancel">Cancel</button>
+          <button
+            class="button button-primary"
+            id="saveNoteBtn"
+            value="default"
+          >
+            Save note
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <script src="app.js"></script>
+  </body>
 </html>
