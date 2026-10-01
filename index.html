@@ -4,24 +4,73 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#151517" />
-    <title>Striver's A2Z Sheet — Personal Tracker</title>
+    <meta
+      name="description"
+      content="An independent personal tracker for learning Data Structures and Algorithms through an A2Z roadmap."
+    />
+    <title>A2Z DSA Progress Tracker — Personal Tracker</title>
     <link rel="stylesheet" href="styles.css" />
+      <style>
+      .contribute-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid var(--line, #303034);
+        border-radius: 12px;
+        background: var(--surface, #151517);
+      }
+      .contribute-section h2 {
+        margin: 0 0 7px;
+        font-size: 16px;
+      }
+      .contribute-section p {
+        margin: 0;
+        color: var(--muted, #85858d);
+        line-height: 1.6;
+      }
+      .contribute-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 9px;
+        flex-shrink: 0;
+      }
+      .contribute-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      @media (max-width: 760px) {
+        .contribute-section {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
   </head>
   <body>
-
     <main class="app" id="top">
       <header class="page-header">
         <div class="heading">
-          <h1>Striver's A2Z Sheet Mirror - Learn DSA from A to Z</h1>
+          <h1>A2Z DSA Progress Tracker</h1>
           <p>
-            This course is made for people who want to learn DSA from A to Z for
-            free in a well-organised and structured manner.
+            An independent, community-driven tracker for learning Data
+            Structures and Algorithms through a structured A2Z roadmap.
+            Track your progress, mark problems for revision, add personal
+            notes, and keep a backup of your progress.
             <a
               href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/"
               target="_blank"
-              rel="noopener"
-              >Know more</a
-            >
+              rel="noopener noreferrer"
+              >Explore the original A2Z course</a
+            >.
+          </p>
+          <p class="project-disclaimer">
+            <strong>Unofficial project:</strong> This tracker is not affiliated
+            with, endorsed by, or maintained by Take U Forward or Striver.
+            Third-party names and materials belong to their respective owners.
           </p>
         </div>
         <div class="header-actions">
@@ -119,6 +168,29 @@
 
       <section class="sheet" id="sheet" aria-label="DSA topics">
         <div id="topicList" aria-live="polite"></div>
+      </section>
+      <section class="contribute-section" aria-labelledby="contributeTitle">
+        <div>
+          <h2 id="contributeTitle">Contribute an Article</h2>
+          <p>
+            Have a useful explanation, approach, or learning note? Help the
+            community by contributing an original article to the tracker.
+          </p>
+        </div>
+        <div class="contribute-actions">
+          <a
+            class="button button-primary"
+            href="https://github.com/Anxhul10/striverAtoZ-mirror#contribute-an-article"
+            target="_blank"
+            rel="noopener noreferrer"
+          >How to contribute</a>
+          <a
+            class="button"
+            href="https://github.com/Anxhul10/striverAtoZ-mirror"
+            target="_blank"
+            rel="noopener noreferrer"
+          >View on GitHub</a>
+        </div>
       </section>
       <footer class="footer-note">
         Progress is saved in this browser. Use Export to keep a backup or move
