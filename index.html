@@ -10,7 +10,51 @@
     />
     <title>A2Z DSA Progress Tracker — Personal Tracker</title>
     <link rel="stylesheet" href="styles.css" />
-      <style>
+
+    <style>
+      .header-brand {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        min-width: 0;
+      }
+
+      .github-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 42px;
+        width: 42px;
+        height: 42px;
+        margin-top: 2px;
+        color: var(--text, #f4f4f5);
+        background: var(--surface, #151517);
+        border: 1px solid var(--line, #303034);
+        border-radius: 10px;
+        text-decoration: none;
+        transition:
+          background 0.2s ease,
+          border-color 0.2s ease,
+          transform 0.2s ease;
+      }
+
+      .github-link:hover {
+        background: var(--surface-hover, #242428);
+        border-color: var(--orange, #f59e0b);
+        transform: translateY(-2px);
+      }
+
+      .github-link svg {
+        width: 22px;
+        height: 22px;
+        fill: currentColor;
+      }
+
+      .github-link:focus-visible {
+        outline: 2px solid var(--orange, #f59e0b);
+        outline-offset: 3px;
+      }
+
       .contribute-section {
         display: flex;
         align-items: center;
@@ -22,27 +66,42 @@
         border-radius: 12px;
         background: var(--surface, #151517);
       }
+
       .contribute-section h2 {
         margin: 0 0 7px;
         font-size: 16px;
       }
+
       .contribute-section p {
         margin: 0;
         color: var(--muted, #85858d);
         line-height: 1.6;
       }
+
       .contribute-actions {
         display: flex;
         flex-wrap: wrap;
         gap: 9px;
         flex-shrink: 0;
       }
+
       .contribute-actions a {
         display: inline-flex;
         align-items: center;
         justify-content: center;
       }
+
       @media (max-width: 760px) {
+        .header-brand {
+          gap: 11px;
+        }
+
+        .github-link {
+          flex-basis: 38px;
+          width: 38px;
+          height: 38px;
+        }
+
         .contribute-section {
           align-items: flex-start;
           flex-direction: column;
@@ -50,29 +109,47 @@
       }
     </style>
   </head>
+
   <body>
     <main class="app" id="top">
       <header class="page-header">
-        <div class="heading">
-          <h1>A2Z DSA Progress Tracker</h1>
-          <p>
-            An independent, community-driven tracker for learning Data
-            Structures and Algorithms through a structured A2Z roadmap.
-            Track your progress, mark problems for revision, add personal
-            notes, and keep a backup of your progress.
-            <a
-              href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/"
-              target="_blank"
-              rel="noopener noreferrer"
-              >Explore the original A2Z course</a
-            >.
-          </p>
-          <p class="project-disclaimer">
-            <strong>Unofficial project:</strong> This tracker is not affiliated
-            with, endorsed by, or maintained by Take U Forward or Striver.
-            Third-party names and materials belong to their respective owners.
-          </p>
+        <div class="header-brand">
+          <a
+            class="github-link"
+            href="https://github.com/Anxhul10/striverAtoZ-mirror"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View project on GitHub"
+            title="View on GitHub"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.55.1.76-.24.76-.53v-2.08c-3.1.67-3.76-1.32-3.76-1.32-.5-1.29-1.23-1.63-1.23-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 .1.76 2.17 3.34 1.5.1-.72.39-1.21.7-1.49-2.47-.28-5.07-1.24-5.07-5.51 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.15a10.6 10.6 0 0 1 5.55 0c2.11-1.45 3.05-1.15 3.05-1.15.61 1.54.23 2.68.11 2.96.72.78 1.15 1.78 1.15 3 0 4.28-2.6 5.23-5.08 5.5.4.35.75 1.03.75 2.08V22c0 .29.2.63.76.52A11.1 11.1 0 0 0 12 .9Z"
+              />
+            </svg>
+          </a>
+
+          <div class="heading">
+            <h1>A2Z DSA Progress Tracker</h1>
+            <p>
+              An independent, community-driven tracker for learning Data
+              Structures and Algorithms through a structured A2Z roadmap.
+              Track your progress, mark problems for revision, add personal
+              notes, and keep a backup of your progress.
+              <a
+                href="https://takeuforward.org/strivers-a2z-dsa-course/strivers-a2z-dsa-course-sheet-2/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >Explore the original A2Z course</a>.
+            </p>
+            <p class="project-disclaimer">
+              <strong>Unofficial project:</strong> This tracker is not affiliated
+              with, endorsed by, or maintained by Take U Forward or Striver.
+              Third-party names and materials belong to their respective owners.
+            </p>
+          </div>
         </div>
+
         <div class="header-actions">
           <button class="button button-reset" id="resetBtn" type="button">
             Reset ↶
@@ -110,7 +187,9 @@
             Revision
           </button>
         </div>
+
         <div class="toolbar-spacer"></div>
+
         <label class="search-wrap" aria-label="Search problems">
           <span aria-hidden="true">⌕</span>
           <input
@@ -120,11 +199,13 @@
             autocomplete="off"
           />
         </label>
+
         <select id="statusFilter" aria-label="Filter by status">
           <option value="all">All problems</option>
           <option value="todo">Not completed</option>
           <option value="done">Completed</option>
         </select>
+
         <select id="difficultyFilter" aria-label="Filter by difficulty">
           <option value="all">Difficulty</option>
           <option value="Easy">Easy</option>
@@ -132,6 +213,7 @@
           <option value="Hard">Hard</option>
           <option value="Unspecified">Not specified</option>
         </select>
+
         <button class="button random-button" id="randomBtn" type="button">
           ⤨ <span>Random Problem</span>
         </button>
@@ -150,6 +232,7 @@
             </div>
           </div>
         </div>
+
         <div class="difficulty-stats">
           <div class="difficulty-stat easy">
             <i></i><span>Easy</span><b id="easyCount">0</b
@@ -169,6 +252,7 @@
       <section class="sheet" id="sheet" aria-label="DSA topics">
         <div id="topicList" aria-live="polite"></div>
       </section>
+
       <section class="contribute-section" aria-labelledby="contributeTitle">
         <div>
           <h2 id="contributeTitle">Contribute an Article</h2>
@@ -177,6 +261,7 @@
             community by contributing an original article to the tracker.
           </p>
         </div>
+
         <div class="contribute-actions">
           <a
             class="button button-primary"
@@ -184,6 +269,7 @@
             target="_blank"
             rel="noopener noreferrer"
           >How to contribute</a>
+
           <a
             class="button"
             href="https://github.com/Anxhul10/striverAtoZ-mirror"
@@ -192,6 +278,7 @@
           >View on GitHub</a>
         </div>
       </section>
+
       <footer class="footer-note">
         Progress is saved in this browser. Use Export to keep a backup or move
         it to another browser.
@@ -209,11 +296,13 @@
             ×
           </button>
         </div>
+
         <textarea
           id="noteText"
           rows="6"
           placeholder="Add an approach, mistake, or revision reminder…"
         ></textarea>
+
         <div class="dialog-actions">
           <button class="button" value="cancel">Cancel</button>
           <button
@@ -226,6 +315,7 @@
         </div>
       </form>
     </dialog>
+
     <script type="module" src="app.js"></script>
   </body>
 </html>
