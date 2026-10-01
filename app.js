@@ -1,3 +1,5 @@
+import { DATA } from "./data.js";
+
 const STORAGE_KEY = "a2z-sheet-progress-v1";
 const REFERENCE_TOTALS = { total: 474, Easy: 151, Medium: 187, Hard: 136 };
 // Deliberately not persisted: a fresh page load starts with every section collapsed.
