@@ -55,7 +55,7 @@ a {
 a:hover {
   text-decoration: underline;
 }
-.rail {
+/* .rail {
   position: fixed;
   inset: 8px auto 8px 8px;
   z-index: 5;
@@ -68,17 +68,8 @@ a:hover {
   background: #141416;
   border: 1px solid #202024;
   border-radius: 12px;
-}
-.rail-logo {
-  color: #fff;
-  font-weight: 800;
-  font-size: 25px;
-  line-height: 42px;
-  text-decoration: none;
-}
-.rail-logo span {
-  color: var(--orange);
-}
+} */
+
 .rail-divider {
   width: 42px;
   border-top: 1px solid var(--line);
