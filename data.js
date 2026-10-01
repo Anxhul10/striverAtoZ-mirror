@@ -1286,7 +1286,7 @@ export const DATA = [
           },
           {
             name: "Check if there exists a subsequence with sum K",
-            url: "https://takeuforward.org/data-structure/check-if-there-exists-a-subsequence-with-sum-k",
+            url: "https://www.geeksforgeeks.org/problems/check-if-there-exists-a-subsequence-with-sum-k/1",
             difficulty: "",
             platform: "GeeksforGeeks",
           },
