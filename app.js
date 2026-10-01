@@ -317,11 +317,32 @@ function render() {
       subTitle.className = "subtopic-title";
       subTitle.textContent = sub.title;
 
+      // Subtopic progress
+      const subSolved = sub.questions.filter(
+        (p) => getProblemState(p.id).done,
+      ).length;
+
       const subCount = document.createElement("span");
       subCount.className = "subtopic-summary";
-      subCount.textContent = `${sub.visible.length} questions`;
+
+      const subTrack = document.createElement("span");
+      subTrack.className = "subtopic-track";
+
+      const subFill = document.createElement("span");
+      subFill.className = "subtopic-track-fill";
+
+      subFill.style.width = `${
+        sub.questions.length ? (subSolved / sub.questions.length) * 100 : 0
+      }%`;
+
+      subTrack.append(subFill);
+
+      const subCountText = document.createElement("span");
+      subCountText.textContent = `${subSolved} / ${sub.questions.length}`;
+
+      subCount.append(subTrack, subCountText);
       subHeading.append(subChevron, subTitle, subCount);
-      
+
       const subContent = document.createElement("div");
       subContent.className = "subtopic-content";
       subContent.hidden = !expandedSubtopics.has(`${ti}:${sub.si}`);
