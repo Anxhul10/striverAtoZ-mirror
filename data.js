@@ -2193,13 +2193,13 @@ export const DATA = [
         questions: [
           {
             name: "Print root to leaf path in BT",
-            url: "https://takeuforward.org/data-structure/print-root-to-node-path-in-a-binary-tree/",
+            url: "https://www.geeksforgeeks.org/problems/root-to-leaf-paths/1",
             difficulty: "",
-            platform: "TakeUForward",
+            platform: "GeeksforGeeks",
           },
           {
             name: "LCA in BT",
-            url: "https://takeuforward.org/data-structure/lowest-common-ancestor-for-two-given-nodes/",
+            url: "https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/",
             difficulty: "",
             platform: "TakeUForward",
           },
